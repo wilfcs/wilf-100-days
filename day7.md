@@ -1,4 +1,4 @@
-[876. Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list/description/)
+# [876. Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list/description/)
 ---
 Approaches ->
 1. Find the size of the ll and return the size/2 node.
@@ -33,7 +33,7 @@ public:
     }      
 };
 ```
-[206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/description/)
+# [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/description/)
 ## Iterative Approach Code (TC->O(N) SC->O(1)) ->
 ```cpp
 class Solution {
@@ -313,8 +313,6 @@ public:
     }
 };
 ```
-
-# CN
 DNS:
 DNS stands for "Domain Name System," and it is a fundamental component of the internet's infrastructure. DNS is essentially a distributed naming system that translates human-readable domain names (like www.example.com) into numeric IP (Internet Protocol) addresses (like 192.0.2.1) that computers use to identify each other on the internet. Without DNS, users must know the IP address of the web page that you wanted
 to access.
@@ -335,3 +333,4 @@ Email communication involves sending and receiving messages through email server
 	- The email doesn't need to go out to the internet. Instead, it is internally routed.
 	- The SMTP server of the sender realizes the destination mailbox is on the same system, so it just transfers the email internally to the appropriate mailbox without needing external DNS resolution for routing.
 	- Steps like DNS lookup and communicating with an external SMTP server are skipped, and the email is directly delivered to the recipient's mailbox on the same server.
+
