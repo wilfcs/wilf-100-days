@@ -275,3 +275,28 @@ public:
     }
 };
 ```
+
+# [Find Center of Star Graph](https://leetcode.com/problems/find-center-of-star-graph/description/)
+
+## Code ->
+```cpp
+class Solution {
+public:
+    int findCenter(vector<vector<int>>& arr) {
+        // The intuition behind this problem is that in a star graph, 
+        // the center node is the only node that is connected to all other nodes. 
+        // Therefore, if we look at the first two edges in the given array, 
+        // the center node must be one of the nodes common to both edges.
+        
+        int a = arr[0][0];
+        int b = arr[0][1];
+        int c = arr[1][0];
+        int d = arr[1][1];
+
+        if(a==c || a==d) return a;
+        if(b==c || b==d) return b;
+
+        return -1;
+    }
+};
+```
