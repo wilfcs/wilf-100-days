@@ -1,0 +1,15 @@
+- Here are the three types->
+- Anomalies ->
+	- Insertion anomaly:
+		- When certain data (attribute) can not be inserted into the DB without the presence of other data. eg. If a student has taken admission but has not been allocated the faculty. If we did not use normalization then insertion of student data would have to stop. If we use normalization we will just put null in foreign key of faculty and enter student data.
+		- Another good example to understand insertion anomaly-> Suppose we have a redundant table called Students having six attributes (id, name, age, branch_code, branch_name, branch_hod). Suppose the student have not been allotted a branch yet then the last three columns of the row has to be kept as null. It is very redundant. Because when the student will be assigned a branch then we have to change everything in the student table. But if you think about it, branch is a separate entity. So why not make a separate table called branch and connect it with student using foreign key?
+		- Another problem that will arise because of this anomaly-> Suppose a new branch is added to the college, and there is no student that have been allocated with that branch. Then where the heck would you store the branch? Becuase there are no student in that branch.Are you going to store that new branch in the student table with no student in it? This is the biggest anomaly. 
+	- Deletion anomaly:
+		- The delete anomaly refers to the situation where the deletion of data results in the unintended loss of some other important data. eg. If the table was not normalized and suppose faculty F only teaches one student. If we delete the value of that student then faculty F's existence will also perish.
+	- Updation anomaly:
+		- The update anomaly is when an update of a single data value requires multiple rows of data to be updated. eg. If any new student is added, we will also have to add all the faculty information. 
+		- Another worst case of updating anomaly is - Suppose the hod of a branch of 1000 students just changed. You'd have to traverse all those students and change the hod. Very redundant isn't it?
+- Due to these anomalies, DB size increases and DB performance becomes very slow. That's why we use normalization.
+- To avoid these anomalies we use normalization. So in normalization we decompose the table into multiple tables till SRP (Single responsibility principle) is achieved.
+- Prime attribute: An attribute that can directly contribute to the uniqueness of the table. eg. Student id as well as student phone number can be a primary attribute but since student's names can be the same it is a non-primary attribute. Keep this is mind as it will help while studying types of normalization. 
+- Now we will read about the types of normalization aka normal forms.
