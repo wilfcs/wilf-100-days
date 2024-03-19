@@ -1,0 +1,15 @@
+- Types of Normal forms: vvi
+	- 1NF: 
+		- Every relation cell must have atomic value. eg. If there is a phone number cell, there should only be one phone number and not more.
+		- Let's understand this properly now. Suppose in a cell there are two phone numbers x and y. According to 1NF we will make two rows out of it to achieve atomicity. Every other value in both the rows will be the same, just x and y will be the difference. Does this make the table redundant? Yes. But that's basically 1NF. It's kinda stupid ngl. Also focus on the wording here, the use of the words cell and row.
+	- 2NF: 
+		- Relation must be in 1NF.
+		- And there should not be any partial dependency, i.e. every non-prime attribute should depend on the primary key and Non prime attributes can not depend on the part of the primary key.  If non prime attributes does not depend on the primary key then normalize the table. 
+		- An eg to understand this statement-> Suppose a table has student id as primary key and it also has book id, student name, and book name.. student name depends on the primary key but book name depends on the book id. So normalize in this case. Make two tables.. table 1 will have student id as primary key, book id and student name.. table 2 will have book id as primary key and book name. note: we also have book id in table 1 so as to link table 1 and table 2. Basically the case of  A can identify B && C can identify D, but A is the PK.
+		- I know you still didn't understand this fully so lets take another example. Suppose we have a table with studentID, projectID, StudentName and ProjectName. Suppose this table is already 1NF. Here there are two possible primary keys. StudentID to represent student and projectID to represent projects. So normalize it and make two tables out of it. 
+	- 3NF: 
+		- Relation must be in 2NF. 
+		- And no transitivity dependency exists. i.e. Non-prime attribute should not find a non-prime attribute. eg. The functional dependency A->B->C should not exist.. in that case decompose the table into 3NF with two tables.. table 1 has A,B and table 2 has B,C where B is the primary key.
+		- What the heck was that? Let's understand the sentence written above. Suppose there are three attributes in a table {A, B, C}. A is the primary key. The functional dependency is as follows-> B depends on PK A. C depends on non PK B. This can produce redundancy in the table. So in order to avoid that we will check if the table is in the form of 2NF. It clearly is in the form of 2NF as both B and C depends on A (A->B->C) and all values are atomic in nature. But since C depends on B we will normalize it by making two table. Table 1 {A(pk), B} and Table 2{B(pk), C}. 
+		- But how will this remove redundancy? Suppose we have to fill multiple values in C, we won't actually have to fill all that in Table 1 and make the Table 1 big and redundant. 
+	- BCNF (Boyce-Codd normal form also read as boycodd): Relation must be in 3NF. And in ‘A → B’, A is a super key of the relation. We can also say that we must not derive a prime attribute from any prime or non-prime attribute.
