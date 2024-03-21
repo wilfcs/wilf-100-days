@@ -1,0 +1,7 @@
+Transaction states of DB:
+- Active state - The very first state of the life cycle of the transaction, all the read and write operations are being performed. If they execute without any error the Transaction comes to Partially committed state. Although if any error occurs then it leads to a Failed state.
+- Partially committed state - After transaction is executed the changes are saved in the buffer in the main memory. If the changes made are permanent on the DB then the state will transfer to the committed state and if there is any failure, the Transaction will go to Failed state.
+- Committed state - When updates are made permanent on the DB. Then the Transaction is said to be in the committed state. Rollback can’t be done from the committed states. New consistent state is achieved at this stage.
+- Failed state - When transaction is being executed and some failure occurs. Due to this it is impossible to continue the execution of the transaction.
+- Aborted state - When transaction reaches the failed state, all the changes made in the buffer are reversed. After that the transaction rollsback completely. It then gets back to the Active State.
+- Terminated state - A transaction is said to have terminated if has either committed or aborted.
