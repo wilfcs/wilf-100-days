@@ -1,0 +1,19 @@
+How to implement Atomicity and Durability in Transactions (Famous interview question)
+- Here are the methods of implementing atomicity and durability in transactions.
+- Shadow Copy Scheme:  Based on making copies of DB (aka, shadow copies). So basically a pointer called db-pointer is maintained on the disk; which at any instant points to current copy of DB. When a new transaction is completed, a new copy of old DB is created and all further updates are done on new DB copy leaving the original copy (shadow copy) untouched. If at any point the T has to be aborted, the system deletes the new copy. And the old copy is not affected. If T is sure that it wants to make the new DB copy as the real DB then it deletes the old DB and db-pointer starts pointing on to the new db copy. This is now the committed state.
+	- How is atomicity maintained? Clearly by using the above method, either a new db is created or the old db remains untouched. Hence, either all updates are reflected or none.
+	- How is durability maintained?  Suppose, system fails are any time before the updated db-pointer is written to disk. When the system restarts, it will read db-pointer & will thus, see the original content of DB and none of the effects of T will be visible. If system fails after db-pointer has been updated. Before that all the pages of the new copy were written to disk. Hence, when system restarts it will read new DB copy.
+	- A question might arise that what if the system fails while updating of the db-pointer. Then the answer is that dp-pointer updation is atomic in nature. We make sure that db-pointer is kept at the beginning of a block.
+	- This shadow copy method is very inefficient though.
+- Log-Based-Recovery-Method: The log is a sequence of records. Log of each transaction is maintained in some stable storage so that if any failure occurs, then it can be recovered from there.
+	- If any operation is performed on the database, then it will be recorded in the log.
+	- But the process of storing the logs should be done before the actual transaction is applied in the database.
+	- So basically the logs are maintained till the transaction is completed. When the transaction is completed then obviously there will be a commit statement at the end of the log. If there is an commit statement then all the log operations are applied on the actual db. If by chance the transaction is incomplete and there is no commit statement at the end of the log, then the log is ignored. 
+	- What if the transaction is completed and there is a commit statement at the end of the log but while updating the things written in the log the db fails? In that case if failure occur while this updating is taking place, we preform redo.
+	- But how is this redo performed? Let's say there are 5 statements in the log, and the db updation failed after 3rd statement, then how will redo occur? How can we rollback? We can do that because the log not just keeps track of the new value that is to be updated but also has the old values that was inside the table. So whenever we have to rollback we can simply change back to the value that was earlier inside the table. 
+	- A log can look something like this ->
+		- <To start>
+		- <To A, 1000, 950> #1000 is the old value and 950 is the new value, this will help us in case of a rollback
+		- <To B, 2000, 2050>
+		- <Commit>
+	- The logs can be very big. To avoid having to process the entire log during recovery (which would be time-consuming), the system periodically takes checkpoints
