@@ -1,0 +1,26 @@
+CAP Theorem:
+- Basic and one of the most important concept in Distributed Databases.
+- Useful to know this to design efficient distributed system for your given business logic.
+- Let’s first breakdown CAP
+	- 1. Consistency: In a consistent system, all nodes see the same data simultaneously. If we perform a read operation on a consistent system, it should return the value of the most recent write operation. The read should cause all nodes to return the same data. All users see the same data at the same time, regardless of the node they connect to. When data is written to a single node, it is then replicated across the other nodes in the system.
+	- 2. Availability: When availability is present in a distributed system, it means that the system remains operational all of the time. Every  requestwill get a response regardless of the individual state of the nodes. This means that the system will operate even if there are multiple nodes down. Unlike a consistent system, there’s no guarantee that the response will be the most recent write operation.
+	- 3. Partition Tolerance: When a distributed system encounters a partition, it means that there’s a break in communication between nodes. If a system is partition-tolerant, the system does not fail, regardless of whether messages are dropped or delayed between nodes within the system. To have partition tolerance, the system must replicate records across combinations of nodes and networks.
+- What does the CAP Theorem says, The CAP theorem states that a distributed system can only provide two of three properties simultaneously: consistency, availability, and partition tolerance. The theorem formalises the tradeoff between consistency and availability when there’s a partition. Basically, when there is a partition, then if we keep the availability on, then suppose we are writing something on node A, because of partition bw node A and B, node B will not be able to register it and consistency will be lost. If we keep the consistency we have to turn the system off and hence the availability will be lost. 
+- Let us now deeply look at how just either CA or CP or AP can exist in CAP theorem together
+	- CA Databases: CA databases enable consistency and availability across all nodes. Unfortunately, CA databases can’t deliver fault tolerance. In any distributed system, partitions are bound to happen, which means this type of database isn’t a very practical choice. This is a hypothetical case which does not occur because there is no system where partition cannot happen.
+	- CP Databases: CP databases enable consistency and partition tolerance, but not availability. When a partition occurs, the system has to turn off inconsistent nodes until the partition can be fixed. MongoDB is an example of a CP database. When system recovers i.e the partition is fixed and two nodes are able to communicate then the availability will be back. In banking system Availability is not as important as consistency, so we can opt for mongoDB.
+	- AP Databases: AP databases enable availability and partition tolerance, but not consistency. In the event of a partition, all nodes are available, but they’re not all updated. For example, if a user tries to access data from a bad node, they won’t receive the most up-to-date version of the data. When the partition is eventually resolved, most AP databases will sync the nodes to ensure consistency across them. Apache Cassandra is an example of an AP database. It’s a NoSQL database with no primary node, meaning that all of the nodes remain available. Cassandra allows for eventual consistency because users can re-sync their data right after a partition is resolved. For apps like Facebook, we value availabilitymore than consistency, we’d opt for AP Databases like Cassandra or Amazon DynamoDB.
+
+
+Look at lecture 19 that is vvi and I skipped it so look at it. You will understand master slave architecture properly after going through that video. 
+Master Slave Architecture:
+- The true or latest data is kept in the Master DB thus write operations are directed there. Reading ops are done only from slaves. This architecture serves the purpose of safeguarding site reliability, availability, reduce latency etc . If a site receives a lot of traffic and the only available database is one master, it will be overloaded with reading and writing requests. Making the entire system slow for everyone on the site.
+- DB replication will take care of distributing data from Master machine to Slaves machines. This can be synchronous or asynchronous depending upon system needs.
+
+
+Discriminator:
+When you have a superclass that can have multiple subtypes with distinct characteristics, a discriminator is used to identify which subtype an instance belongs to. This discriminator attribute typically contains a value or a set of values that uniquely identify each subtype.
+
+For example, consider a superclass called "Employee" with subtypes "Manager" and "Developer." The discriminator attribute could be "EmployeeType," where the value "Manager" identifies instances of the "Manager" subtype and "Developer" identifies instances of the "Developer" subtype.
+
+Using discriminators allows for efficient querying and retrieval of specific subtype instances, as well as enforcing constraints and maintaining data integrity in the database schema.
